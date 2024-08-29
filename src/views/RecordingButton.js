@@ -12,11 +12,6 @@ registerIcons({
 });
 
 export const recordingButtonPropsCallback = (serverCallId, recordingId, setRecordingId,) => {
-    // const credential = new DefaultAzureCredential(); 
-const endpointUrl = 'https://cs-dev-us-livestream.unitedstates.communication.azure.com/' 
-// const callAutomationClient = new CallAutomationClient(endpointUrl, credential); 
-// const callAutomationClient = new CallAutomationClient.CallAutomationClient("<ACSConnectionString>");
-    
     const isRecording = !!recordingId;
     return (args) => ({
         placement: 'primary',
@@ -25,7 +20,6 @@ const endpointUrl = 'https://cs-dev-us-livestream.unitedstates.communication.azu
         text: isRecording ? 'Stop Recording' : 'Start Recording',
         iconName: isRecording ? 'StopRecording' : 'StartRecording',
         onItemClick: async () => {
-            console.log(serverCallId,"<------server call id")
             if (!serverCallId) {
                 console.warn('Recording buton: No serverCallId yet!');
                 return;
@@ -33,7 +27,7 @@ const endpointUrl = 'https://cs-dev-us-livestream.unitedstates.communication.azu
 
             if (isRecording) {
                 // stop the recording
-                // await stopRecording({ serverCallId, recordingId });
+                await stopRecording({ serverCallId, recordingId });
                 console.log('STOP RECORDNG')
                 setRecordingId('');
                 return

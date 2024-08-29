@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 import { CallAdapterLocator, CallComposite, CallCompositeOptions, CommonCallAdapter, createAzureCommunicationCallAdapterFromClient, createStatefulCallClient, fromFlatCommunicationIdentifier } from '@azure/communication-react';
-import { Spinner } from '@fluentui/react';
+import { mergeStyles, Spinner, Stack } from '@fluentui/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSwitchableFluentTheme } from '../theming/SwitchableFluentThemeProvider';
 import { useIsMobile } from '../utils/useInMobile';
@@ -10,16 +10,17 @@ import { isIOS } from '../utils/utils';
 import { CallScreenProps } from './CallScreen';
 import { recordingButtonPropsCallback } from './RecordingButton';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
-import {v1} from 'uuid'
+import { v1 } from 'uuid'
+import { RecordingList } from './RecordingList';
 
 export const CallCompositeContainer = (props) => {
-  
-  const { adapter,serverCallId } = props;
+
+  const { adapter, serverCallId } = props;
   const { currentTheme, currentRtl } = useSwitchableFluentTheme();
   const isMobileSession = useIsMobile();
   const shouldHideScreenShare = isMobileSession || isIOS();
 
-  
+
   const [recordingId, setRecordingId] = useState('');
 
 
@@ -27,7 +28,7 @@ export const CallCompositeContainer = (props) => {
     /**
      * We want to make sure that the page is up to date. If for example a browser is dismissed
      * on mobile, the page will be stale when opened again. This event listener will reload the page
-     */    
+     */
 
     window.addEventListener('pageshow', (event) => {
       if (event.persisted) {
@@ -58,7 +59,7 @@ export const CallCompositeContainer = (props) => {
       },
       autoShowDtmfDialer: true
     }),
-    [shouldHideScreenShare,serverCallId]
+    [shouldHideScreenShare, serverCallId, recordingId, setRecordingId]
   );
 
   // Dispose of the adapter in the window's before unload event.
@@ -81,18 +82,32 @@ export const CallCompositeContainer = (props) => {
   }
 
   return (
-    <CallComposite
-      adapter={adapter}
-      fluentTheme={currentTheme.theme}
-      rtl={currentRtl}
-      callInvitationUrl={callInvitationUrl}
-      formFactor={isMobileSession ? 'mobile' : 'desktop'}
-      options={options}
-    />
+    <Stack
+    tokens={{ childrenGap: '1rem' }}
+    className={mergeStyles({
+      margin: '2rem'
+    })}
+  >
+    <Stack.Item grow>
+      <div style={{ height: '70vh', display: 'flex' }}>
+
+        <CallComposite
+          adapter={adapter}
+          fluentTheme={currentTheme.theme}
+          rtl={currentRtl}
+          callInvitationUrl={callInvitationUrl}
+          formFactor={isMobileSession ? 'mobile' : 'desktop'}
+          options={options}
+        />
+      </div>
+    </Stack.Item>
+    <RecordingList serverCallId={serverCallId} />
+
+    </Stack>
   );
 };
 
-const isTeamsMeetingLinkLocator = (locator ) => {
+const isTeamsMeetingLinkLocator = (locator) => {
   return 'meetingLink' in locator;
 };
 

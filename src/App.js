@@ -41,7 +41,6 @@ export default function App() {
     (async () => {
       try {
         const { token, user } = await fetchTokenResponse();
-        console.log(token,'<-------------------token',user,"<-----------user")
         setToken(token);
         setUserId(user);
       } catch (e) {

@@ -14,7 +14,7 @@ export const startRecording = async (req) => {
 
 
 export const stopRecording = async (req) => {
-    await fetch('/api/stopRecording', {
+    await fetch('http://10.99.32.166:7071/api/stopRecording', {
         method: 'POST',
         body: JSON.stringify({ serverCallId: req.serverCallId, recordingId: req.recordingId }),
     })
@@ -25,7 +25,7 @@ export const stopRecording = async (req) => {
 export const listRecordings = async (req) => {
     return await(
         await fetch(
-            `/api/listRecordings?serverCallId=${encodeURIComponent(req.serverCallId)}`,
+            `http://10.99.32.166:7071/api/listRecordings?serverCallId=${encodeURIComponent(req.serverCallId)}`,
             { method: "GET" }
         )
     ).json();

@@ -193,7 +193,6 @@ const AzureCommunicationCallScreen = (props) => {
   useEffect(() => {
     adapter?.onStateChange(async (state) => {
           if (state.call?.state === 'Connected') {
-            console.log('come to connected')
             const call = adapter.callAgent.calls.find((call) => call.id === state.call?.id);
             if (call) {
               setServerCallId(await call.info.getServerCallId());
@@ -201,7 +200,6 @@ const AzureCommunicationCallScreen = (props) => {
             }
           }})
   }, [adapter]);
-  console.log(adapter,'<-------------manoj')
   return <CallCompositeContainer {...props} adapter={adapter} serverCallId={serverCallId} />;
 };
 
