@@ -17,6 +17,11 @@ export const stopRecording = async (req) => {
     await fetch('http://10.99.32.166:7071/api/stopRecording', {
         method: 'POST',
         body: JSON.stringify({ serverCallId: req.serverCallId, recordingId: req.recordingId }),
+    }).then(res=>{
+         fetch('http://10.99.32.166:7071/api/onRecordingFileStatusUpdated', {
+            method: 'POST',
+            body: JSON.stringify({ serverCallId: req.serverCallId, recordingId: req.recordingId }),
+        })
     })
     console.log(`Stopped recording for ${req.serverCallId}: ${req.recordingId}`);
 }

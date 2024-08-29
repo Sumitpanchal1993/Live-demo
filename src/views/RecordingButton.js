@@ -1,6 +1,4 @@
 import { Record20Regular, RecordStop20Filled } from "@fluentui/react-icons";
-// import { CallAutomationClient } from '@azure/communication-call-automation';
-// import { DefaultAzureCredential } from "@azure/identity"; 
 import { startRecording, stopRecording } from "./Api";
 import { registerIcons } from "@fluentui/react";
 
@@ -13,6 +11,7 @@ registerIcons({
 
 export const recordingButtonPropsCallback = (serverCallId, recordingId, setRecordingId,) => {
     const isRecording = !!recordingId;
+    console.log(isRecording, '<-----isrecording')
     return (args) => ({
         placement: 'primary',
         key: 'recordingButton',
@@ -35,7 +34,7 @@ export const recordingButtonPropsCallback = (serverCallId, recordingId, setRecor
 
             // start the recording
             const { recordingId: newRecordingId } = await startRecording({ serverCallId });
-            console.log(newRecordingId,'<---------newRecording id')
+            console.log(newRecordingId, '<---------newRecording id')
             setRecordingId(newRecordingId);
         }
     });

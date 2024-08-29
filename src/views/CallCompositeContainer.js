@@ -49,13 +49,13 @@ export const CallCompositeContainer = (props) => {
   const options = useMemo(
     () => ({
       callControls: {
+        onFetchCustomButtonProps: [
+          recordingButtonPropsCallback(serverCallId, recordingId, setRecordingId)
+        ],
         screenShareButton: shouldHideScreenShare ? false : undefined,
         endCallButton: {
           hangUpForEveryone: 'endCallOptions'
         },
-        onFetchCustomButtonProps: [
-          recordingButtonPropsCallback(serverCallId, recordingId, setRecordingId)
-        ]
       },
       autoShowDtmfDialer: true
     }),

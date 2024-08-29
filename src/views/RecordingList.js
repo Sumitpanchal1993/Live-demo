@@ -29,6 +29,7 @@ export function RecordingList(props) {
         background: theme.palette.neutralDark,
         color: theme.palette.white,
         padding: '1rem',
+        height:'5vh',
         // The recording names tend to be overly long.
         wordBreak: 'break-word'
     })}>
