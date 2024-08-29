@@ -1,6 +1,7 @@
-import { CustomCallControlButtonCallback, CustomCallControlButtonCallbackArgs } from "@azure/communication-react";
 import { Record20Regular, RecordStop20Filled } from "@fluentui/react-icons";
-// import { startRecording, stopRecording } from "./Api";
+// import { CallAutomationClient } from '@azure/communication-call-automation';
+// import { DefaultAzureCredential } from "@azure/identity"; 
+import { startRecording, stopRecording } from "./Api";
 import { registerIcons } from "@fluentui/react";
 
 registerIcons({
@@ -10,7 +11,12 @@ registerIcons({
     }
 });
 
-export const recordingButtonPropsCallback = (serverCallId, recordingId, setRecordingId) => {
+export const recordingButtonPropsCallback = (serverCallId, recordingId, setRecordingId,) => {
+    // const credential = new DefaultAzureCredential(); 
+const endpointUrl = 'https://cs-dev-us-livestream.unitedstates.communication.azure.com/' 
+// const callAutomationClient = new CallAutomationClient(endpointUrl, credential); 
+// const callAutomationClient = new CallAutomationClient.CallAutomationClient("<ACSConnectionString>");
+    
     const isRecording = !!recordingId;
     return (args) => ({
         placement: 'primary',
@@ -19,6 +25,7 @@ export const recordingButtonPropsCallback = (serverCallId, recordingId, setRecor
         text: isRecording ? 'Stop Recording' : 'Start Recording',
         iconName: isRecording ? 'StopRecording' : 'StartRecording',
         onItemClick: async () => {
+            console.log(serverCallId,"<------server call id")
             if (!serverCallId) {
                 console.warn('Recording buton: No serverCallId yet!');
                 return;
@@ -33,10 +40,8 @@ export const recordingButtonPropsCallback = (serverCallId, recordingId, setRecor
             }
 
             // start the recording
-            // const { recordingId: newRecordingId } = await startRecording({ serverCallId });
-            const { recordingId: newRecordingId } =  {
-                recordingId:'12455RECORDINGID'
-            };
+            const { recordingId: newRecordingId } = await startRecording({ serverCallId });
+            console.log(newRecordingId,'<---------newRecording id')
             setRecordingId(newRecordingId);
         }
     });

@@ -19,7 +19,7 @@ import {
 } from "@azure/communication-react";
 
 import { onResolveVideoEffectDependencyLazy } from "@azure/communication-react";
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createAutoRefreshingCredential } from "../utils/Credential";
 import { WEB_APP_TITLE } from "../utils/AppUtils";
 import { CallCompositeContainer } from "./CallCompositeContainer";
@@ -139,6 +139,8 @@ const TeamsCallScreen = (props) => {
 
 const AzureCommunicationCallScreen = (props) => {
   const { afterCreate, callLocator: locator, userId, ...adapterArgs } = props;
+  const [serverCallId, setServerCallId] = useState('');
+
 
   if (!("communicationUserId" in userId)) {
     throw new Error(
@@ -188,8 +190,19 @@ const AzureCommunicationCallScreen = (props) => {
     },
     afterCreate
   );
-
-  return <CallCompositeContainer {...props} adapter={adapter} />;
+  useEffect(() => {
+    adapter?.onStateChange(async (state) => {
+          if (state.call?.state === 'Connected') {
+            console.log('come to connected')
+            const call = adapter.callAgent.calls.find((call) => call.id === state.call?.id);
+            if (call) {
+              setServerCallId(await call.info.getServerCallId());
+              console.log(await call.info.getServerCallId())
+            }
+          }})
+  }, [adapter]);
+  console.log(adapter,'<-------------manoj')
+  return <CallCompositeContainer {...props} adapter={adapter} serverCallId={serverCallId} />;
 };
 
 const AzureCommunicationOutboundCallScreen = (props) => {

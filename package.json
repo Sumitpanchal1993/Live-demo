@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@azure/communication-call-automation": "^1.2.0",
     "@azure/communication-common": "^2.3.1",
     "@azure/communication-react": "^1.18.1",
     "@fluentui/react": "^8.120.6",
