@@ -22,7 +22,7 @@ export const createAutoRefreshingCredential = (userId, token) => {
 
 const refreshTokenAsync = (userIdentity) => {
   return async () => {
-    const response = await  fetch(`https://js-backend-qti7.onrender.com/refreshToken/${userIdentity}`, postRefreshTokenParameters);
+    const response = await  fetch(`http://localhost:8080/refreshToken/${userIdentity}`, postRefreshTokenParameters);
     if (response.ok) {
       return (await response.json()).token;
     } else {

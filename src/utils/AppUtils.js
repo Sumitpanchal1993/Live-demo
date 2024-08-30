@@ -11,7 +11,7 @@ import { v1 as generateGUID } from 'uuid';
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fetchTokenResponse = async ()=> {
-  const response = await  fetch('https://js-backend-qti7.onrender.com/token?scope=voip');
+  const response = await  fetch('http://localhost:8080/token?scope=voip');
   if (response.ok) {
     // console.log( await response.json(),'<---------fetch token response')
     const responseAsJson = await response.json();
@@ -47,7 +47,7 @@ export const createRoom = async ()=> {
   const requestOptions = {
     method: 'POST'
   };
-  const response = await  fetch(`https://js-backend-qti7.onrender.com/createRoom`, requestOptions);
+  const response = await  fetch(`http://localhost:8080/createRoom`, requestOptions);
   if (!response.ok) {
     throw 'Unable to create room';
   }
@@ -67,7 +67,7 @@ export const addUserToRoom = async (userId, roomId, role) => {
     },
     body: JSON.stringify({ userId: userId, roomId: roomId, role: role })
   };
-  const response = await  fetch('https://js-backend-qti7.onrender.com/addUserToRoom', requestOptions);
+  const response = await  fetch('http://localhost:8080/addUserToRoom', requestOptions);
   if (!response.ok) {
     throw 'Unable to add user to room';
   }
