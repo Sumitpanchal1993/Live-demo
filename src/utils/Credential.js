@@ -3,7 +3,7 @@
 
 import { AzureCommunicationTokenCredential, CommunicationTokenRefreshOptions } from '@azure/communication-common';
 import { AbortSignalLike } from '@azure/abort-controller';
-
+import IP from '../views/IP.json'
 const postRefreshTokenParameters = {
   method: 'POST'
 };
@@ -22,7 +22,7 @@ export const createAutoRefreshingCredential = (userId, token) => {
 
 const refreshTokenAsync = (userIdentity) => {
   return async () => {
-    const response = await  fetch(`http://localhost:8080/refreshToken/${userIdentity}`, postRefreshTokenParameters);
+    const response = await  fetch(`${IP.localIP}refreshToken/${userIdentity}`, postRefreshTokenParameters);
     if (response.ok) {
       return (await response.json()).token;
     } else {

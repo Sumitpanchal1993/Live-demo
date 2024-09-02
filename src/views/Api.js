@@ -1,8 +1,8 @@
-
+import IP from './IP.json';
 
 export const startRecording = async (req) => {
     const response = await (
-        await fetch('http://10.99.35.67:7071/api/startRecording', {
+        await fetch(`${IP.IP}api/startRecording`, {
             method: 'POST',
             body: JSON.stringify({ serverCallId: req.serverCallId }),
         })
@@ -49,36 +49,36 @@ const payload = [
 
 
 export const stopRecording = async (req) => {
-    await fetch('http://10.99.35.67:7071/api/stopRecording', {
+    await fetch(`${IP.IP}api/stopRecording`, {
         method: 'POST',
         body: JSON.stringify({ serverCallId: req.serverCallId, recordingId: req.recordingId }),
     })
-    .then(res=>{
-         fetch('http://10.99.35.67:7071/api/onRecordingFileStatusUpdated', {
-            method: 'POST',
-            // body: JSON.stringify({ serverCallId: req.serverCallId, recordingId: req.recordingId }),
-            body: JSON.stringify({
-                EventType: "Microsoft.Communication.RecordingFileStatusUpdated",
-                Subject: `serverCallId/${req.serverCallId}/recordingId/${req.recordingId}`,
-                Data: {
-                    RecordingStorageInfo: {
-                        RecordingChunks: [
-                            {
-                                ContentLocation: "https://livestreamstoragecontain.blob.core.windows.net/livestreamstoragecontain",
-                                DocumentId: "doc1",
-                                Index: 1
-                            },
-                            // {
-                            //     ContentLocation: "https://uscloudcontainer.blob.core.windows.net/livestream?sp=racwdli&st=2024-08-23T05:07:52Z&se=2025-01-01T13:07:52Z&sv=2022-11-02&sr=c&sig=HJ3Z1kNmRuyDh%2F3%2BZ3EW8Gmvft%2F8%2BKJY4h6ee0j%2FBTA%3D",
-                            //     DocumentId: "doc2",
-                            //     Index: 2
-                            // }
-                        ]
-                    }
-                }
-            }),
-        })
-    })
+    // .then(res=>{
+    //      fetch('http://10.99.32.166:7071/api/onRecordingFileStatusUpdated', {
+    //         method: 'POST',
+    //         // body: JSON.stringify({ serverCallId: req.serverCallId, recordingId: req.recordingId }),
+    //         body: JSON.stringify({
+    //             EventType: "Microsoft.Communication.RecordingFileStatusUpdated",
+    //             Subject: `serverCallId/${req.serverCallId}/recordingId/${req.recordingId}`,
+    //             Data: {
+    //                 RecordingStorageInfo: {
+    //                     RecordingChunks: [
+    //                         {
+    //                             ContentLocation: "https://livestreamstoragecontain.blob.core.windows.net/livestreamstoragecontain",
+    //                             DocumentId: "doc1",
+    //                             Index: 1
+    //                         },
+    //                         // {
+    //                         //     ContentLocation: "https://uscloudcontainer.blob.core.windows.net/livestream?sp=racwdli&st=2024-08-23T05:07:52Z&se=2025-01-01T13:07:52Z&sv=2022-11-02&sr=c&sig=HJ3Z1kNmRuyDh%2F3%2BZ3EW8Gmvft%2F8%2BKJY4h6ee0j%2FBTA%3D",
+    //                         //     DocumentId: "doc2",
+    //                         //     Index: 2
+    //                         // }
+    //                     ]
+    //                 }
+    //             }
+    //         }),
+    //     })
+    // })
     console.log(`Stopped recording for ${req.serverCallId}: ${req.recordingId}`);
 }
 
@@ -86,7 +86,7 @@ export const stopRecording = async (req) => {
 export const listRecordings = async (req) => {
     return await(
         await fetch(
-            `http://10.99.35.67:7071/api/listRecordings?serverCallId=${encodeURIComponent(req.serverCallId)}`,
+            `${IP.IP}api/listRecordings?serverCallId=${encodeURIComponent(req.serverCallId)}`,
             { method: "GET" }
         )
     ).json();

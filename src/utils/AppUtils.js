@@ -5,13 +5,14 @@ import { GroupLocator, TeamsMeetingLinkLocator } from '@azure/communication-call
 import { ParticipantRole, RoomCallLocator } from '@azure/communication-calling';
 import { TeamsMeetingIdLocator } from '@azure/communication-calling';
 import { v1 as generateGUID } from 'uuid';
+import IP from '../views/IP.json'
 
 /**
  * Get ACS user token from the Contoso server.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fetchTokenResponse = async ()=> {
-  const response = await  fetch('http://localhost:8080/token?scope=voip');
+  const response = await  fetch(`${IP.localIP}token?scope=voip`);
   if (response.ok) {
     // console.log( await response.json(),'<---------fetch token response')
     const responseAsJson = await response.json();
@@ -47,7 +48,7 @@ export const createRoom = async ()=> {
   const requestOptions = {
     method: 'POST'
   };
-  const response = await  fetch(`http://localhost:8080/createRoom`, requestOptions);
+  const response = await  fetch(`${IP.localIP}createRoom`, requestOptions);
   if (!response.ok) {
     throw 'Unable to create room';
   }
@@ -67,7 +68,7 @@ export const addUserToRoom = async (userId, roomId, role) => {
     },
     body: JSON.stringify({ userId: userId, roomId: roomId, role: role })
   };
-  const response = await  fetch('http://localhost:8080/addUserToRoom', requestOptions);
+  const response = await  fetch(`${IP.localIP}/addUserToRoom`, requestOptions);
   if (!response.ok) {
     throw 'Unable to add user to room';
   }
