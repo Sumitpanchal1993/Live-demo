@@ -1,4 +1,4 @@
 {
-    "IP": "http://10.99.32.166:7071/",
+    "IP": "https://acsrecordapi.azurewebsites.net/",
     "localIP": "https://js-backend-1.onrender.com/"
 }
