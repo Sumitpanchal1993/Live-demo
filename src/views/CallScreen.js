@@ -165,10 +165,13 @@ const AzureCommunicationCallScreen = (props) => {
           frameCount: 102,
         },
         heartReaction: {
-          url: "/assets/reeactionactions/heartEmoji.png",
+          url: "/assets/reactions/heartEmoji.png",
           frameCount: 102,
         },
-        laughReaction: { url: "/assets/rs/laughEmoji.png", frameCount: 102 },
+        laughReaction: { 
+          url: "/assets/reactions/laughEmoji.png",
+          frameCount: 102 
+        },
         applauseReaction: {
           url: "/assets/reactions/clapEmoji.png",
           frameCount: 102,

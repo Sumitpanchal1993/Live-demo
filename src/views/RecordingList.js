@@ -28,6 +28,8 @@ export function RecordingList(props) {
     return (<Stack className={mergeStyles({
         background: theme.palette.neutralDark,
         color: theme.palette.white,
+        position: "relative",
+        zIndex: '1',
         padding: '1rem',
         height:'5vh',
         // The recording names tend to be overly long.

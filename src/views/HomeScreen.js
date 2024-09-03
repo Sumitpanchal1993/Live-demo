@@ -3,7 +3,9 @@
 
 import React, { useState } from 'react';
 import { Stack, PrimaryButton, Image, ChoiceGroup, IChoiceGroupOption, Text, TextField } from '@fluentui/react';
-import heroSVG from '../hero.svg';
+// import heroSVG from '../hero.svg';
+import heroImg from '../Media/Vagaro_Logo.png';
+// import vagaroLogo from '../Media/Vagaro_Logo.png'
 import {
   imgStyle,
   infoContainerStyle,
@@ -27,7 +29,9 @@ import { getIsCTE } from '../utils/AppUtils';
 
 
 export const HomeScreen = (props) => {
-  const imageProps = { src: heroSVG.toString() };
+  // const imageProps = { src: heroSVG.toString() };
+  const imageProps = { src: heroImg };
+  // const imageProps = { src: vagaroLogo };
   const headerTitle = props.joiningExistingCall ? 'Join Call' : 'Start or join a call';
   const callOptionsGroupLabel = 'Select a call option';
   const buttonText = 'Next';

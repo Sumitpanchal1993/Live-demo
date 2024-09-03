@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+#root{
+  /* width: 100vw; */
+  height: 100vh;
+}
+
 .css-145{
-  height: 70vh !important;
+  /* height: 70vh !important; */
   }

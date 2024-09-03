@@ -4,7 +4,7 @@
 import { IStackTokens, mergeStyles } from '@fluentui/react';
 
 export const imgStyle = mergeStyles({
-  width: '16.5rem',
+  width: '25rem',
   padding: '0.5rem',
   '@media (max-width: 67.1875rem)': {
     display: 'none'
